@@ -65,9 +65,19 @@
     background-color: rgba($cobalt-blue, 0.8);
   }
 }
+
+.translate-button.loading {
+  background-color: $viridian;
+}
+
 .translate-response-container {
+  transition: all 0.3s ease-in-out;
   border: 3px solid $viridian;
   color: $viridian;
   background-color: white;
   padding: 1rem;
+  min-height: 10rem;
+}
+.translate-response-container.empty {
+  border: 3px solid rgba($cobalt-blue, 0.3);
 }

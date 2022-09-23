@@ -1,18 +1,16 @@
 import { useStore } from "@nanostores/react";
 import classNames from "classnames";
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import useTranslateService, {
   translateOutputAtom,
 } from "../services/translate/useTranslateService";
 import SpeechRecognition from "../utils/helpers/speechRecognition";
 
 function Translate() {
-  const [value, setValue] = useState("");
-  const [isRecording, setIsRecording] = useState(false);
-
   const { translate } = useTranslateService();
   const translateOutput = useStore(translateOutputAtom);
-
+  const [value, setValue] = useState("");
+  const [isRecording, setIsRecording] = useState(false);
   const canRecord = useMemo(() => typeof SpeechRecognition !== "undefined", []);
 
   useEffect(() => {
@@ -21,6 +19,10 @@ function Translate() {
       recognition.start();
       recognition.lang = "en-US";
       recognition.onspeechend = () => {
+        setIsRecording(false);
+        recognition.stop();
+      };
+      recognition.onerror = () => {
         setIsRecording(false);
         recognition.stop();
       };
@@ -38,7 +40,7 @@ function Translate() {
   }, [isRecording, canRecord, translate]);
 
   return (
-    <div>
+    <Fragment>
       <div className="textarea-container">
         <textarea
           autoFocus
@@ -56,15 +58,24 @@ function Translate() {
           {isRecording ? "recording..." : "record"}
         </button>
       </div>
-      <button onClick={() => translate(value)} className="translate-button">
+      <button
+        onClick={() => translate(value)}
+        className={classNames("translate-button", {
+          loading: translateOutput.status === "loading",
+        })}
+      >
         {translateOutput.status === "loading" ? "translating..." : "translate"}
       </button>
-      {translateOutput.status === "success" && (
-        <div className="translate-response-container">
-          {translateOutput.payload.translatedText}
-        </div>
-      )}
-    </div>
+      <div
+        className={classNames("translate-response-container", {
+          empty: translateOutput.status !== "success",
+        })}
+      >
+        {translateOutput.status === "success" && (
+          <div>{translateOutput.payload.translatedText}</div>
+        )}
+      </div>
+    </Fragment>
   );
 }
 
