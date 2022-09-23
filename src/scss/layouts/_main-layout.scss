@@ -1,0 +1,19 @@
+@use "../abstracts" as *;
+
+.main-layout-container {
+  width: calc(100% - 32px);
+  margin: 0 auto;
+  @include tablet {
+    width: calc(640px - 32px);
+  }
+  @include laptop {
+    width: calc(760px - 32px);
+  }
+
+  .header {
+    padding: 2rem 0;
+    text-align: center;
+    font-size: $text-xl;
+    letter-spacing: 1.4px;
+  }
+}
