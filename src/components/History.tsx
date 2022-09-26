@@ -10,8 +10,8 @@ function History() {
         <h3>history</h3>
         <ul>
           {history.map((item, index) => (
-            <li key={item.text + index}>
-              <div>{item.text}</div>
+            <li key={item.originalText + index}>
+              <div>{item.originalText}</div>
               <div>{item.translatedText}</div>
             </li>
           ))}
