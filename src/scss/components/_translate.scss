@@ -23,6 +23,9 @@
       border: 3px solid rgba($cobalt-blue, 0.5);
       box-shadow: 0 0 14px rgba($cobalt-blue, 0.1);
     }
+    &::placeholder {
+      color: rgba($cobalt-blue, 0.5);
+    }
   }
 }
 .record-button {

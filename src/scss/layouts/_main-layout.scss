@@ -6,9 +6,7 @@
   @include tablet {
     width: calc(640px - 32px);
   }
-  // @include laptop {
-  //   width: calc(760px - 32px);
-  // }
+
   .header {
     padding: 2rem 0;
     text-align: center;

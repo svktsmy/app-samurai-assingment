@@ -43,6 +43,7 @@ function Translate() {
     <Fragment>
       <div className="textarea-container">
         <textarea
+          placeholder="type in english.."
           autoFocus
           value={value}
           onChange={(e) => setValue(e.target.value)}
