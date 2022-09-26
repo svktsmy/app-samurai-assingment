@@ -16,6 +16,9 @@ const useTranslateService = () => {
   const { request } = useRequest();
 
   const translate = async (q: string) => {
+    if (!Boolean(q)) {
+      return;
+    }
     const translateOutput = translateOutputAtom.get();
     if (translateOutput.status === "loading") {
       return;
